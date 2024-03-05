@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+/src/React_Lecture.tsx
+/src/Todoitem.tsx
 # testing
 /coverage
 
