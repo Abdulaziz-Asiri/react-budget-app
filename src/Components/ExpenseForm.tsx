@@ -1,37 +1,38 @@
 import Button from "@mui/material/Button";
 
-export function Incomeform({
+export function ExpenseForm({
   handleChangeSource,
-  handleChangeAmount,
+  handlChangeamount,
   handleChangeDate,
-  handleSubmit,
+  handlSubmit,
 }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <form   onSubmit={handlSubmit}>
       <div>
-        <label htmlFor="resource" id="resource">
-          Income Soucrce
+        <label htmlFor="expense" id="expense">
+          Expense Source
         </label>
         <input
           type="text"
-          name="resource"
-          placeholder="Enter Your Income"
+          name="expense"
+          placeholder="Enter Expenses"
           onChange={handleChangeSource}
         />
       </div>
+      <label htmlFor="expense"></label>
       <div>
         <label htmlFor="amount" id="amount">
-          Expenses
+          Expenses amount
         </label>
         <input
           type="text"
           name="amount"
           placeholder="Enter Your Expenses"
-          onChange={handleChangeAmount}
+          onChange={handlChangeamount}
         />
       </div>
       <div>
-        <label htmlFor="datename"> Date</label>
+        <label htmlFor="datename"> Expenses Date</label>
         <input
           type="date"
           name="datename"
@@ -39,9 +40,9 @@ export function Incomeform({
           onChange={handleChangeDate}
         />
       </div>
-      <Button variant="contained" color="success" onClick={handleSubmit}>
+      <Button variant="contained" color="success" onClick={handlSubmit}>
         {" "}
-        Add Income
+        Add Expense{" "}
       </Button>
     </form>
   );
