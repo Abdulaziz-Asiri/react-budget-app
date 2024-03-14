@@ -2,16 +2,30 @@ import Button from "@mui/material/Button";
 import { ChangeEvent } from "react";
 
 type savingTarget = {
-  setSavingTargt: (key: number) => void
-}
+  setSavingTargt: (key: number) => void;
+  savingTargt: number
+  currentSaving: (key: number) => void;
+  totleTrnasfer:number
+};
 
-export function SetTargetWrapper ({ setSavingTargt }: savingTarget) {
+export function SetTargetWrapper({
+  setSavingTargt,
+  savingTargt,
+  currentSaving,
+  totleTrnasfer,
+}: savingTarget) {
 
   const handleTraget = (e: any) => {
-    let target = e.target.value
-    console.log("I catch Target: ", target);
+    let target = e.target.value;
+    // console.log("I catch Target: ", target);
     setSavingTargt(target);
   };
+  console.log("I catch currentSaving: ", currentSaving);
+
+  //?
+  const progress = (totleTrnasfer / savingTargt) * 100 || 0;
+
+  console.log("progress: ", progress + "%");
 
   return (
     <div>
@@ -26,8 +40,8 @@ export function SetTargetWrapper ({ setSavingTargt }: savingTarget) {
           placeholder="Eenter your Traget"
           onChange={handleTraget}
         />
-        <progress id="target" value="40" max="100" />
-        <label id="target">Saving progress:{40}%</label>
+        <progress id="target" value={progress} max="100" />
+        <label id="target">Saving progress:{progress}%</label>
 
         <Button type="reset" color="success" variant="contained">
           Rest

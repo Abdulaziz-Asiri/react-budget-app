@@ -1,13 +1,11 @@
 import { useState } from "react";
-import {Button ,Typography} from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 // type TransferAccountProps = {
 //   setTransferAmount: (key: number) => void;
 //   setcurrentSaving: (key: number) => void;
 //   transferAmount: (key: number)  => void;
 // };
-
-//!
 
 export function TrasferAmountWrapper({
   setTransferAmount,
@@ -16,28 +14,32 @@ export function TrasferAmountWrapper({
   currentSaving,
   balance,
 }) {
-  const [transferError, setTransferError] = useState('')
+  const [transferError, setTransferError] = useState("");
+
   const handleTransfer = (e: any) => {
     let transfer = e.target.value;
-    console.log("I catch your trasfer: ", transfer);
-    setTransferAmount(transfer);
+    setTransferAmount({ saving: +transfer });
   };
 
-  //TODO  finish tranfer feture 56:45 minutes
   const handleSumbit = (e: any) => {
     e.preventDefault();
+    setCurrentSaving([...currentSaving, transferAmount]);
+    // if (transferAmount <= balance) {
+    //   // setCurrentSaving((transferAmount ));
 
-    if (transferAmount <= balance) {
-      setCurrentSaving(transferAmount);
-      console.log("setcurrentSaving:", currentSaving);
-       setTransferError("");
-    } else {
-      setTransferError("Not  enough Balance");
-    }
+    //   setCurrentSaving((previousState) => {
+    //     return previousState + transferAmount
+    //   })
+    //   console.log("setcurrentSaving:", currentSaving);
 
-    setTransferAmount(0);
+    //   setTransferError("");
+    // } else {
+    //   setTransferError("Not  enough Balance");
+    // }
 
-    console.log("I handl trasfer: ", transferAmount);
+    // setTransferAmount(0);
+
+    // console.log("I handl trasfer: ", transferAmount);
   };
 
   return (
@@ -55,10 +57,11 @@ export function TrasferAmountWrapper({
           name="transfer"
           placeholder="Enter the transfer amount"
           onChange={handleTransfer}
-          value={transferAmount}
         />
         {/* Display Error message */}
-        {transferError && <Typography color="error">{transferError}</Typography>}
+        {transferError && (
+          <Typography color="error">{transferError}</Typography>
+        )}
         <Button
           type="submit"
           color="success"
