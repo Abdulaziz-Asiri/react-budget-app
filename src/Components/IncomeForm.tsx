@@ -40,7 +40,7 @@ export function Incomeform({
         />
       </div>
       <Button variant="contained" color="success" onClick={handleSubmit}>
-        {" "}
+         
         Add Income
       </Button>
     </form>

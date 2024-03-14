@@ -1,16 +1,26 @@
 .formDesign {
     
     float: left;
-    padding: 50px;
+    padding: 20px;
     
   
 }
 .formDesign1{
     float: right;
+    display:grid;
     padding: 20px;
-
+ 
+}
+.formDesign2{
+    display: flex
 }
 
 .heading{
     text-align: center;
+    
+}
+
+.span1{
+    display: grid;
+
 }

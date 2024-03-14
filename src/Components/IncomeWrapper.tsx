@@ -1,45 +1,47 @@
 import { useState } from "react";
+import {ChangeEvent} from "react"
 import { Incomeform } from "./IncomeForm";
+import Button from "@mui/material/Button";
 
 // rfc
-export function IncomeWrapper() {
-  // Create generic type
-  // type Income ={
-  //   id: number
-  //   source = String
-  //   amount= Number
-  //   date = String
-  // }
-  type Income = {
-    source: string;
-    amount: number;
-    date: string;
-  };
+export type Income ={
+  id: number
+  IncomeSource : string
+  IncomeAmount: number
+  IncomeDate:  string
+};
 
-  const [incomes, setIncomes] = useState<Income[]>([]);
-  const [income, setIncome] = useState({
-    source: "",
-    amount: 0,
-    date: new Date().toLocaleDateString(),
+type IncomeWrapperType = {
+  incomes: Income[]
+  setIncomes: (key: Income[]) => void
+}
+export function IncomeWrapper({ incomes, setIncomes }: IncomeWrapperType) {
+  // Create generic type
+
+  // const [incomes, setIncomes] = useState<Income[]>([]);
+  const [income, setIncome] = useState<Income>({
+    id: +new Date(),
+    IncomeSource: "",
+    IncomeAmount: 0,
+    IncomeDate: new Date().toLocaleDateString(),
   });
 
-  const handleChangeSource = (e: any) => {
-    let source = e.target.value;
-    setIncome({ ...income, source: source });
-    console.log("I got you !!😁", source);
+  const handleChangeSource = (e: ChangeEvent<HTMLInputElement>) => {
+    let incomeSource = e.target.value;
+    setIncome({ ...income, IncomeSource: incomeSource });
   };
-  const handleChangeAmount = (e: any) => {
-    let amount = e.target.value;
-    console.log("I got amoutn!!👌", amount);
-    setIncome({ ...income, amount: amount });
+  const handleChangeAmount = (e:any) => {
+    let incomeAmount = e.target.value;
+
+    setIncome({ ...income, IncomeAmount: incomeAmount });
   };
-  const handleChangeDate = (e: any) => {
-    let date = e.target.value;
-    console.log("I got date!!🙌", date);
-    setIncome({ ...income, date: date });
+  const handleChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
+    let incomeDate = e.target.value;
+
+    setIncome({ ...income, IncomeDate: incomeDate });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setIncomes([...incomes, income]);
 
@@ -57,10 +59,13 @@ export function IncomeWrapper() {
       <ul>
         {incomes.map((income) => {
           return (
-            <li>
-              <p>Income Amount: {income.amount}</p>
-              <p>Income Source: {income.source}</p>
-              <p>Date: {income.date}</p>
+            <li key={income.id}>
+              <p>Income Source: {income.IncomeSource}</p>
+              <p>Income Amount: {income.IncomeAmount}</p>
+              <p>Date: {income.IncomeDate}</p>
+              <Button color="error" variant="contained">
+                Delete
+              </Button>
             </li>
           );
         })}
