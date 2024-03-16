@@ -10,13 +10,18 @@ export type Expense = {
     expenseAmount: number
     expenseDate: string
 }
-type ExpenseWrapper ={
-    expenses: Expense[]
-    setExpenses: (key: Expense[]) => void
-}
+type ExpenseWrapper = {
+  expenses: Expense[];
+  setExpenses: (key: Expense[]) => void;
+  handleDeleteExpense: (key: number) => void;
+};
 
-export function ExpenseWrapper({expenses, setExpenses}: ExpenseWrapper ) {
-//   const [expenses, setExpenses] = useState([]);
+export function ExpenseWrapper({
+  expenses,
+  setExpenses,
+  handleDeleteExpense,
+}: ExpenseWrapper) {
+  //   const [expenses, setExpenses] = useState([]);
   const [expense, setExpense] = useState<Expense>({
     id: +new Date(),
     expenseSource: "",
@@ -24,13 +29,13 @@ export function ExpenseWrapper({expenses, setExpenses}: ExpenseWrapper ) {
     expenseDate: new Date().toLocaleDateString(),
   });
 
-  const handleChangeSource = (e:   ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSource = (e: ChangeEvent<HTMLInputElement>) => {
     let expensesource = e.target.value;
 
     setExpense({ ...expense, expenseSource: expensesource }); // the three dots mean keep old value and store new vavlue
   };
 
-  const handlChangeamount = (e:any) => {
+  const handlChangeamount = (e: any) => {
     let expenseamount = e.target.value;
     setExpense({ ...expense, expenseAmount: expenseamount });
   };
@@ -52,6 +57,7 @@ export function ExpenseWrapper({expenses, setExpenses}: ExpenseWrapper ) {
           handlChangeamount={handlChangeamount}
           handleChangeDate={handleChangeDate}
           handlSubmit={handlSubmit}
+          handleDeleteExpense={handleDeleteExpense}
         />
 
         <ul>
@@ -61,7 +67,11 @@ export function ExpenseWrapper({expenses, setExpenses}: ExpenseWrapper ) {
                 <p>Expense Source: {expens.expenseSource}</p>
                 <p>Expense Amount: {expens.expenseAmount}</p>
                 <p>Date: {expens.expenseDate}</p>
-                <Button color="error" variant="contained">
+                <Button
+                  color="error"
+                  variant="contained"
+                  onClick={() => handleDeleteExpense(expense.id)}
+                >
                   Delete
                 </Button>
               </li>

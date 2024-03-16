@@ -17,10 +17,7 @@ export default function App() {
   const [currentSaving, setCurrentSaving] = useState<Saving[]>([]);
   const [transferAmount, setTransferAmount] = useState({ saving: 0 });
 
-  // let sumIncomes = 0;
-  // incomes.forEach((income) => {
-  //   sumIncomes += income.amount;
-  // });
+
   //TODO Calculate the total of the current saving and the percentage of the current saving amount / target of saving.✅
   //TODO Add a delete button to remove items in income and expense sources.
   // TODO Fix the balance and transfer bug✅
@@ -28,6 +25,30 @@ export default function App() {
   //TODO Implement routing
   //TODO Style using MUI
 
+  const handleDeleteIncome = (id: number) => {
+    
+    //1. allocate form which array we want to delete
+    
+    //2. Get which ID we want to delete
+    //3. FILTER from the source array which is inocmes
+    const updatedIncome = incomes.filter((income) => {
+      return income.id !== id;
+    });
+    //4. Update the incomes array
+    setIncomes(updatedIncome);
+  };
+  ;
+const handleDeleteExpense = (id: number) => {
+  //1. allocate form which array we want to delete
+
+  //2. Get which ID we want to delete
+  //3. FILTER from the source array which is inocmes
+  const updateExpense = expenses.filter((expense) => {
+    return expense.id !== id;
+  });
+  //4. Update the incomes array
+  setExpenses(updateExpense);
+};
   const sumIncomes = incomes.reduce((acc, curr) => {
     return acc + Number(curr.IncomeAmount);
   }, 0);
@@ -41,13 +62,13 @@ export default function App() {
     return acc + Number(curr.saving);
   }, 0);
 
-  console.log("totleTrnasfer:", totleTrnasfer);
+  
   const balance = sumIncomes - sumExpenses - totleTrnasfer;
   console.log("Balance", balance);
 
   return (
     <>
-      <div class="heading">
+      <div className="heading">
         <h1>Budget App</h1>
         <p>
           The more your money works for you, the less you have to work for
@@ -55,14 +76,22 @@ export default function App() {
         </p>
       </div>
 
-      <div class="formDesign">
-        <IncomeWrapper incomes={incomes} setIncomes={setIncomes} />
+      <div className="formDesign">
+        <IncomeWrapper
+          incomes={incomes}
+          setIncomes={setIncomes}
+          handleDeleteIncome={handleDeleteIncome}
+        />
       </div>
 
-      <div class="formDesign">
-        <ExpenseWrapper expenses={expenses} setExpenses={setExpenses} />
+      <div className="formDesign">
+        <ExpenseWrapper
+          expenses={expenses}
+          setExpenses={setExpenses}
+          handleDeleteExpense={handleDeleteExpense}
+        />
       </div>
-      <div class="formDesign1">
+      <div className="formDesign1">
         <TrasferAmountWrapper
           transferAmount={transferAmount}
           setTransferAmount={setTransferAmount}
@@ -72,7 +101,7 @@ export default function App() {
         />
       </div>
 
-      <div class="formDesign2">
+      <div className="formDesign2">
         <SetTargetWrapper
           setSavingTargt={setSavingTargt}
           savingTargt={savingTargt}
@@ -80,7 +109,7 @@ export default function App() {
         />
       </div>
 
-      <div class="span1">
+      <div className="span1">
         {" "}
         <span>Current Balance:{balance} </span>
         <span>Current Saving:{totleTrnasfer} </span>

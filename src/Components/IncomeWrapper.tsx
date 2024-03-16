@@ -12,10 +12,15 @@ export type Income ={
 };
 
 type IncomeWrapperType = {
-  incomes: Income[]
-  setIncomes: (key: Income[]) => void
-}
-export function IncomeWrapper({ incomes, setIncomes }: IncomeWrapperType) {
+  incomes: Income[];
+  setIncomes: (key: Income[]) => void;
+  handleDeleteIncome: (key: number) => void;
+};
+export function IncomeWrapper({
+  incomes,
+  setIncomes,
+  handleDeleteIncome,
+}: IncomeWrapperType) {
   // Create generic type
 
   // const [incomes, setIncomes] = useState<Income[]>([]);
@@ -30,7 +35,7 @@ export function IncomeWrapper({ incomes, setIncomes }: IncomeWrapperType) {
     let incomeSource = e.target.value;
     setIncome({ ...income, IncomeSource: incomeSource });
   };
-  const handleChangeAmount = (e:any) => {
+  const handleChangeAmount = (e: any) => {
     let incomeAmount = e.target.value;
 
     setIncome({ ...income, IncomeAmount: incomeAmount });
@@ -55,6 +60,7 @@ export function IncomeWrapper({ incomes, setIncomes }: IncomeWrapperType) {
         handleChangeAmount={handleChangeAmount}
         handleChangeDate={handleChangeDate}
         handleSubmit={handleSubmit}
+        handleDeleteIncome={handleDeleteIncome}
       />
       <ul>
         {incomes.map((income) => {
@@ -63,7 +69,11 @@ export function IncomeWrapper({ incomes, setIncomes }: IncomeWrapperType) {
               <p>Income Source: {income.IncomeSource}</p>
               <p>Income Amount: {income.IncomeAmount}</p>
               <p>Date: {income.IncomeDate}</p>
-              <Button color="error" variant="contained">
+              <Button
+                color="error"
+                variant="contained"
+                onClick={() => handleDeleteIncome(income.id)}
+              >
                 Delete
               </Button>
             </li>
